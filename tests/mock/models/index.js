@@ -57,6 +57,23 @@ const mockFindOne = (Instance, where) => {
   return result;
 };
 
+
+const mockFindByPk = (Instance, pk) => {
+  
+  let result;
+
+  entries.forEach((entry) => {
+    const [key, value] = [entry[0], entry[1]];
+
+    const index = Instance
+      .findIndex((item) => item.id === pk);
+    if (index !== -1) {
+      result = Instance[index];
+    }
+  });
+
+  return result;
+};
 /*
   No nosso caso, os modelos aqui precisam de 3 funções principais
   (são aquelas que estão associadas às entidades nos `controllers`): 
@@ -69,6 +86,7 @@ const User = {
   create: async (data) => mockCreate(Users, data),
   findAll: async () => Users,
   findOne: async ({ where }) => mockFindOne(Users, where),
+  findByPk: async (pk) => mockFindByPk(Users, pk),
 };
 
 const Post = {
