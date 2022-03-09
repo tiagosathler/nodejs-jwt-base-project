@@ -5,8 +5,8 @@
   "scripts": {
     "prestart": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
     "start": "nodemon .",
-    "test": "mocha ./tests/**/*$NAME*.test.js --exit",
-    "test:coverage": "nyc --include='src/**/*.js' npm run test",
+    "test": "clear && mocha ./tests/**/*$NAME*.test.js --exit",
+    "test:coverage": "clear && nyc --include='src/**/*.js' npm run test",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
