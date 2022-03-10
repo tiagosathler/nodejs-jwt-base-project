@@ -1,15 +1,24 @@
 const { User } = require('../models');
 
+const { generateToken } = require('../utils/auth');
+
 module.exports = async (req, res) => {
   try {
-    const users = await User.findAll();
+  const { username, password } = req.body;
 
-    if (!users) throw Error;
+  const user = await User.findOne({ where: { username } });
 
-    res.status(200).json(users);
+  if (!user || user.password !== password)
+    return res.status(401).json({ message: 'Usuário não existe ou senha inválida' });
+
+  console.log(user.dataValues);
+
+  const token = generateToken({ username });
+
+   /* Por fim, nós devolvemos essa informação ao usuário. */
+   res.status(200).json({ token });
+
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: 'Erro ao buscar usuários no banco', error: err.message });
+    return res.status(500).json({ message: 'Erro interno', error: err.message });
   }
 };
