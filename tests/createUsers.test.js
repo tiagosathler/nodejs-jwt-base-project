@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Rota /api/users', () => {
+describe('-- Rota /api/users', () => {
   const ENDPOINT = '/api/users';
 
   before(() => {
